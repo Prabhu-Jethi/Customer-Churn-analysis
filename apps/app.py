@@ -1,10 +1,12 @@
+import os
 import streamlit as st
 import joblib
 import pandas as pd
 import numpy as np
 import sys
 from sklearn.preprocessing import LabelEncoder
-sys.path.append(r'D:\Python\Churn_predictor\src')
+BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(os.path.join(BASE, 'src'))
 
 st.set_page_config(
     page_title="Churn Predictor",
@@ -246,14 +248,14 @@ div[data-testid="stButton"] > button:hover {
 
 @st.cache_resource
 def load_model():
-    model = joblib.load(r'D:\Python\Churn_predictor\src\xgb_model.pkl')
-    scaler = joblib.load(r'D:\Python\Churn_predictor\src\scaler.pkl')
+    model = joblib.load(os.path.join(BASE, 'src', 'xgb_model.pkl'))
+    scaler = joblib.load(os.path.join(BASE, 'src', 'scaler.pkl'))
     return model, scaler
 
 
 @st.cache_data
 def get_feature_cols():
-    df = pd.read_csv(r'D:\Python\Churn_predictor\data\WA_Fn-UseC_-Telco-Customer-Churn.csv')
+    df = pd.read_csv(os.path.join(BASE, 'data', 'WA_Fn-UseC_-Telco-Customer-Churn.csv'))
     df['TotalCharges'] = pd.to_numeric(df['TotalCharges'], errors='coerce')
     df.dropna(inplace=True)
     df.reset_index(drop=True, inplace=True)
