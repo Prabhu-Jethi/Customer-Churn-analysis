@@ -290,7 +290,7 @@ This project is licensed under the MIT License — see the [LICENSE](LICENSE) fi
 
 **Your Name**
 - GitHub: [Prabhu-Jethi](https://github.com/Prabhu-Jethi)
-- LinkedIn: [your-linkedin](https://www.linkedin.com/in/prabhu-jethi/)
+- LinkedIn: [Prabhudatta Jethi](https://www.linkedin.com/in/prabhu-jethi/)
 
 ---
 
