@@ -4,15 +4,10 @@
 
 <div align="center">
 
-![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![XGBoost](https://img.shields.io/badge/XGBoost-1.7+-006400?style=for-the-badge)
-![Streamlit](https://img.shields.io/badge/Streamlit-1.x-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
-![scikit-learn](https://img.shields.io/badge/scikit--learn-1.x-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
 **An end-to-end machine learning pipeline that predicts customer churn for a telecom company — with a live interactive dashboard, SHAP explainability, and automated model persistence.**
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://your-app-url.streamlit.app)
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://customer-churn-analysis-predictor.streamlit.app/)
 
 </div>
 
@@ -20,9 +15,10 @@
 
 ## 🖥️ Live Demo
 
-> 🔗 **[Launch App →](https://your-app-url.streamlit.app)**
+> 🔗 **[Launch App →](https://customer-churn-analysis-predictor.streamlit.app/)**
 
-![App Screenshot](assets/app_screenshot.png)
+![App Screenshot]<img width="1316" height="635" alt="Screenshot 2026-05-03 at 19-38-00 Churn Predictor · Streamlit" src="https://github.com/user-attachments/assets/5ca00f4e-b013-4d15-aa6b-f43764d33e2b" />
+
 
 ---
 
@@ -47,6 +43,9 @@ A telecom company is losing 26.5% of its customers annually,
 representing $1.67M in revenue at risk. This project identifies
 the key drivers of churn and builds a prediction model to flag
 at-risk customers before they leave.
+
+---
+
 
 ## 🧠 Overview
 
