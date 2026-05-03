@@ -17,7 +17,7 @@
 
 > 🔗 **[Launch App →](https://customer-churn-analysis-predictor.streamlit.app/)**
 
-![App Screenshot]<img width="1316" height="635" alt="Screenshot 2026-05-03 at 19-38-00 Churn Predictor · Streamlit" src="https://github.com/user-attachments/assets/5ca00f4e-b013-4d15-aa6b-f43764d33e2b" />
+![App Screenshot](<img width="1316" height="635" alt="Screenshot 2026-05-03 at 19-38-00 Churn Predictor · Streamlit" src="https://github.com/user-attachments/assets/5ca00f4e-b013-4d15-aa6b-f43764d33e2b" />)
 
 
 ---
