@@ -1,0 +1,69 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from schemas.prediction import CustomerData
+from services.prediction_services import predict_churn
+from services.recommendation_service import generate_recommendations
+
+app = FastAPI(
+    title="Churn-Analysis API",
+    description="Customer churn prediction and retention intelligence API",
+    version="1.0.0"
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+@app.get("/")
+def root():
+    return{
+        "message": "App is running",
+        "status": "healthy"
+    }
+
+@app.get("/health")
+def health_check():
+    return{
+        "status": "ok"
+    }
+
+@app.post("/predict")
+def predict(customer: CustomerData):
+
+    prediction, probability, drivers = predict_churn(
+        customer.model_dump()
+    )
+    
+    if probability < 0.30:
+        risk_level = 'low'
+
+    elif probability < 0.60:
+        risk_level = 'mid'
+
+    else:
+        risk_level = 'high'
+
+    recommendations = generate_recommendations(
+        customer.model_dump(),
+        probability,
+        drivers
+    )
+
+    return{
+        "prediction": prediction,
+        "churn_probability": round(probability, 4),
+        "churn_percentage": round(probability * 100, 2),
+        "risk_level": risk_level,
+        "model": "XGBoost",
+        "drivers": drivers,
+        "recommendations": recommendations
+    }
+

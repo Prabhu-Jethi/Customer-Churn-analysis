@@ -8,7 +8,7 @@ from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
 from sklearn.metrics import classification_report, roc_auc_score
 
-X_res, X_test, y_res, y_test, scaler = load_and_preprocess(
+X_res, X_test, y_res, y_test, scaler, feature_columns = load_and_preprocess(
     r'D:\Python\Churn_predictor\data\WA_Fn-UseC_-Telco-Customer-Churn.csv')
 
 models = {
@@ -28,5 +28,6 @@ for name, model in models.items():
 # Save model and scaler
 joblib.dump(model, r'D:\Python\Churn_predictor\src\xgb_model.pkl')
 joblib.dump(scaler, r'D:\Python\Churn_predictor\src\scaler.pkl')
+joblib.dump(feature_columns, r'D:\Python\Churn_predictor\src\feature_columns.pkl')
 
-print("Model and scaler saved successfully!")
+print("Model, scaler and feature_columns saved successfully!")

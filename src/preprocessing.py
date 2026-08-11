@@ -43,4 +43,63 @@ def load_and_preprocess(filepath):
     X_res = scaler.fit_transform(X_res)
     X_test = scaler.transform(X_test)
     
-    return X_res, X_test, y_res, y_test, scaler
+    return X_res, X_test, y_res, y_test, scaler, X.columns.to_list()
+
+
+def preprocess_customer(customer_data, feature_columns, scaler):
+
+    '''Preprocess single customer data for model inference'''
+
+    df = pd.DataFrame([customer_data])
+
+    # Encode binary columns
+    bin_cols = [
+        'gender',
+        'Partner',
+        'Dependents',
+        'PhoneService',
+        'MultipleLines',
+        'OnlineSecurity',
+        'OnlineBackup',
+        'DeviceProtection',
+        'TechSupport',
+        'StreamingTV',
+        'StreamingMovies',
+        'PaperlessBilling'
+    ]
+
+    for col in bin_cols:
+        if col in df.columns:
+            le = LabelEncoder()
+            le.fit(['No', 'Yes'])
+
+            # gender uses Female/Male instead
+            if col == 'gender':
+                le.fit(['Female', 'Male'])
+
+            df[col] = le.transform(df[col])
+
+    # One-hot encode categorical columns
+    df = pd.get_dummies(
+        df,
+        columns=[
+            'Contract',
+            'PaymentMethod',
+            'InternetService'
+        ]
+    )
+
+    # Remove columns that the model does not use
+    if 'customerID' in df.columns:
+        df.drop('customerID', axis=1, inplace=True)
+
+    # Make sure every training feature exists
+    df = df.reindex(
+        columns=feature_columns,
+        fill_value=0
+    )
+
+    # Apply the scaler fitted during training
+    X = scaler.transform(df)
+
+    return X

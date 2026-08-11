@@ -1,0 +1,23 @@
+## BASE IMAGE
+FROM node:20-alpine
+
+## WORKING DIRECTORY
+WORKDIR /app
+
+## COPY PACKAGES
+COPY package*.json ./
+
+## RUN TO INSTALL PACKAGES AND REQUIREMENTS
+RUN npm ci
+
+## COPY THEM
+COPY . .
+
+## RUN TO CHECK
+RUN npm run build
+
+## PORT FOR FRONTEND
+EXPOSE 3000
+
+## COMMANDS
+CMD ["npm", "start"]
