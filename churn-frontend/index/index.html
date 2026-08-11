@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ChurnIQ — Customer Retention Intelligence</title>
+  <meta name="description" content="Customer churn prediction, explainability and retention intelligence." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="page-glow"></div>
+
+<header class="nav">
+  <a class="brand" href="#product"><span class="brand-mark">C</span><span><strong>ChurnIQ</strong><small>Retention intelligence</small></span></a>
+  <nav class="nav-links">
+    <a class="active" href="#product">Product</a><a href="#intelligence">Intelligence</a><a href="#workflow">How it works</a><a href="#analytics">Analytics</a>
+  </nav>
+  <button class="nav-cta" data-scroll="preview">Launch platform <span>↗</span></button>
+  <button class="menu-btn" aria-label="Open menu">☰</button>
+</header>
+
+<main>
+<section class="hero" id="product">
+  <div class="hero-copy">
+    <div class="eyebrow"><span></span> AI-powered customer retention</div>
+    <h1>Know who will churn.<br><em>Know why.</em></h1>
+    <p class="hero-sub">Predict customer churn with machine learning, understand the drivers behind every prediction, and turn risk signals into smarter retention decisions.</p>
+    <div class="hero-actions">
+      <button class="primary-btn" data-scroll="preview">Explore the platform <span>→</span></button>
+      <button class="secondary-btn" data-scroll="workflow">See how it works <span>↗</span></button>
+    </div>
+    <div class="hero-proof"><div><strong>0.90</strong><span>ROC-AUC</span></div><div><strong>85%</strong><span>Churn recall</span></div><div><strong>7,043</strong><span>Customers analyzed</span></div></div>
+  </div>
+  <div class="hero-visual">
+    <div class="orbital-grid"></div><div class="hero-orb"><div class="orb-core">C</div><div class="orbit orbit-1"></div><div class="orbit orbit-2"></div>
+      <div class="signal-card card-one"><span>Risk score</span><b id="heroRisk">93.3%</b><small id="heroRiskLabel">High risk</small></div>
+      <div class="signal-card card-two"><span>Model</span><b>XGBoost</b><small>ROC-AUC 0.90</small></div>
+      <div class="signal-card card-three"><span>Top driver</span><b>Contract</b><small>Month-to-month</small></div>
+    </div>
+  </div>
+</section>
+
+<section class="logo-strip"><span>BUILT FOR DATA-DRIVEN RETENTION</span><div class="tech-list"><b>Python</b><b>XGBoost</b><b>SHAP</b><b>FastAPI</b><b>Next.js</b></div></section>
+
+<section class="intro section" id="intelligence">
+  <div class="section-kicker">ONE PLATFORM · THREE INTELLIGENCE LAYERS</div>
+  <h2>From customer data to<br><em>retention action.</em></h2>
+  <p class="section-lead">ChurnIQ turns a model prediction into a clear, explainable customer story.</p>
+  <div class="feature-grid">
+    <article class="feature-card feature-large green-card"><span class="pill">01 · Predict</span><h3>See risk before<br>customers leave.</h3><p>Generate a probability-based churn score from customer profile and service information.</p><div class="mini-chart"><i style="height:34%"></i><i style="height:48%"></i><i style="height:41%"></i><i style="height:67%"></i><i style="height:54%"></i><i style="height:82%"></i><i style="height:74%"></i><i style="height:93%"></i></div></article>
+    <article class="feature-card image-card"><div class="mock-person"></div><div class="image-overlay"><span class="pill">02 · Explain</span><h3>Every prediction<br>has a reason.</h3><p>SHAP-based explanations surface the strongest drivers behind individual predictions.</p></div></article>
+    <article class="feature-card compact-card"><span class="icon-bubble">↗</span><span class="pill">03 · Act</span><h3>Turn risk into<br>retention strategy.</h3><p>Translate customer risk signals into practical next-step recommendations.</p></article>
+    <article class="feature-card metric-card"><div class="metric-top"><span>Model performance</span><span class="dot"></span></div><strong>90%</strong><p>ROC-AUC achieved by the selected XGBoost model.</p><div class="metric-line"><span></span></div></article>
+  </div>
+</section>
+
+<section class="workflow section" id="workflow">
+  <div class="workflow-copy"><div class="section-kicker">HOW THE INTELLIGENCE WORKS</div><h2>A complete ML story,<br><em>not just a score.</em></h2><p>The experience connects prediction, explainability and business action into one simple flow.</p></div>
+  <div class="pipeline" id="pipeline">
+    <button class="pipeline-step active" data-step="0"><span>01</span><b>Customer data</b><small>Profile + services</small></button><div class="pipeline-arrow">→</div>
+    <button class="pipeline-step" data-step="1"><span>02</span><b>ML prediction</b><small>XGBoost inference</small></button><div class="pipeline-arrow">→</div>
+    <button class="pipeline-step" data-step="2"><span>03</span><b>SHAP analysis</b><small>Why the score changed</small></button><div class="pipeline-arrow">→</div>
+    <button class="pipeline-step" data-step="3"><span>04</span><b>Retention action</b><small>Prioritized response</small></button>
+    <div class="pipeline-detail" id="pipelineDetail"><span>01 · Customer data</span><strong>Start with the customer story.</strong><p>Profile, tenure, contract and service attributes become the input to the prediction layer.</p></div>
+  </div>
+</section>
+
+<section class="product-preview section" id="preview">
+  <div class="preview-heading"><div><div class="section-kicker">PRODUCT EXPERIENCE</div><h2>Risk intelligence at<br><em>a glance.</em></h2></div><p>Designed to make complex ML outputs understandable for business users.</p></div>
+  <div class="app-window" id="platform">
+    <div class="app-top"><div class="app-brand"><span class="brand-mark small">C</span> ChurnIQ</div><div class="app-status"><span></span> <span id="modelStatus">Model online</span></div></div>
+    <div class="app-body">
+      <aside class="app-side">
+        <button class="side-active" data-tab="overview">Overview</button><button data-tab="predict">Predict churn</button><button data-tab="analytics">Analytics</button><button data-tab="explain">Explainability</button><button data-tab="history">History</button>
+      </aside>
+      <div class="app-main">
+        <div class="app-title"><div><small>Customer risk profile</small><h3>CUST_10294</h3></div><button id="resetPrediction">Reset</button></div>
+
+        <div class="app-metrics">
+          <div class="risk-card"><small>Churn probability</small><strong class="risk-number" id="riskNumber">63.2%</strong><span id="riskLabel" class="risk-badge medium">Medium risk</span></div>
+          <div><small>Tenure</small><strong id="tenureValue">65 mo</strong><span id="tenureMeta">Established customer</span></div>
+          <div><small>Monthly charges</small><strong id="chargesValue">$29</strong><span id="chargesMeta">Moderate charges</span></div>
+          <div><small>Contract</small><strong id="contractValue">Monthly</strong><span>Primary driver</span></div>
+        </div>
+
+        <div class="app-view active" data-view="overview">
+          <div class="interactive-controls">
+            <div class="control"><label>Tenure <output id="tenureOut">65</output> mo</label><input id="tenure" type="range" min="1" max="72" value="65"></div>
+            <div class="control"><label>Monthly charges <output id="chargesOut">29</output></label><input id="charges" type="range" min="20" max="120" value="29"></div>
+            <div class="control"><label>Contract</label><select id="contract"><option value="monthly">Month-to-month</option><option value="one">One year</option><option value="two">Two year</option></select></div>
+            <button class="predict-btn" id="predictBtn">Run prediction →</button>
+          </div>
+          <div class="app-lower">
+            <div class="shap-box"><div class="box-head"><b>Why this customer is at risk</b><span>SHAP · demo</span></div>
+              <div class="bar-row"><span>Contract type</span><i><em id="barContract"></em></i><b id="impactContract">+0.28</b></div>
+              <div class="bar-row"><span>Tenure</span><i><em id="barTenure"></em></i><b id="impactTenure">+0.02</b></div>
+              <div class="bar-row"><span>Monthly charges</span><i><em id="barCharges"></em></i><b id="impactCharges">+0.04</b></div>
+              <div class="bar-row"><span>Tech support</span><i><em id="barSupport"></em></i><b id="impactSupport">+0.04</b></div>
+            </div>
+            <div class="recommendation"><span class="pill">Retention insight</span><h4 id="recommendationTitle">Monitor this customer.</h4><p id="recommendationText">Consider proactive outreach and a service review before risk increases.</p><button id="recommendationBtn">View recommendation →</button></div>
+          </div>
+        </div>
+
+        <div class="app-view" data-view="predict"><div class="view-card"><span class="pill">Prediction workspace</span><h4>Run a customer risk assessment.</h4><p>Adjust the customer profile, then run the prediction. The demo UI is ready to connect to your FastAPI endpoint.</p><button class="predict-btn wide" id="predictBtn2">Run prediction →</button></div></div>
+        <div class="app-view" data-view="analytics"><div class="view-card"><span class="pill">Analytics</span><h4>Contract risk concentration</h4><div class="mini-bars"><div><span>Month-to-month</span><i><em style="width:88%"></em></i><b>61.2%</b></div><div><span>One year</span><i><em style="width:42%"></em></i><b>24.0%</b></div><div><span>Two year</span><i><em style="width:25%"></em></i><b>14.8%</b></div></div></div></div>
+        <div class="app-view" data-view="explain"><div class="view-card"><span class="pill">SHAP explanation</span><h4>Why this customer is at risk.</h4><p id="explainText">Contract type is the strongest current driver, followed by tenure and monthly charges.</p><div class="explain-grid"><span>Contract type</span><b id="explainContract">+0.28</b><span>Tenure</span><b id="explainTenure">+0.02</b><span>Monthly charges</span><b id="explainCharges">+0.04</b></div></div></div>
+        <div class="app-view" data-view="history"><div class="view-card"><span class="pill">Prediction history</span><h4>Recent assessments</h4><div class="history-row"><span>Today · CUST_10294</span><b id="historyRisk">63.2% · Medium</b></div><div class="history-row"><span>Previous · CUST_10188</span><b>28.4% · Low</b></div><div class="history-row"><span>Previous · CUST_10071</span><b>81.7% · High</b></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="analytics section" id="analytics">
+  <div class="analytics-copy"><div class="section-kicker">ANALYTICS</div><h2>See the patterns<br>behind <em>churn.</em></h2><p>Understand where risk concentrates across contracts, tenure, services and customer segments.</p><button class="secondary-btn" id="exploreAnalytics">Explore analytics ↗</button></div>
+  <div class="analytics-panel"><div class="panel-head"><span>Churn rate by contract</span><small>Dataset · 7,043 customers</small></div>
+    <div class="contract-row"><span>Month-to-month</span><i><em style="width:88%"></em></i><b>61.2%</b></div><div class="contract-row"><span>One year</span><i><em style="width:42%"></em></i><b>24.0%</b></div><div class="contract-row"><span>Two year</span><i><em style="width:25%"></em></i><b>14.8%</b></div>
+    <div class="donut"><span><strong>26.5%</strong><small>overall churn</small></span></div>
+  </div>
+</section>
+
+<section class="cta section"><div class="cta-glow"></div><div class="section-kicker">CUSTOMER RETENTION, REIMAGINED</div><h2>Turn churn prediction into<br><em>retention intelligence.</em></h2><p>Explore risk. Understand the why. Take action.</p><button class="primary-btn" data-scroll="preview">Explore ChurnIQ →</button></section>
+</main>
+
+<div class="toast" id="toast" role="status"></div>
+<div class="modal-backdrop" id="modal"><div class="modal"><button class="modal-close" id="modalClose">×</button><span class="pill">Retention recommendation</span><h3 id="modalTitle">Monitor this customer.</h3><p id="modalBody"></p><div class="modal-actions"><button class="primary-btn" id="modalAction">Continue</button></div></div></div>
+
+<footer><div class="brand"><span class="brand-mark">C</span><span><strong>ChurnIQ</strong><small>Customer retention intelligence</small></span></div><span>© 2026 ChurnIQ · <a href="mailto:prabhujethi9@gmail.com">prabhujethi9@gmail.com</a> · Made by Prabhu-Jethi</span></footer>
+<script src="script.js"></script>
+</body>
+</html>
