@@ -180,10 +180,10 @@ export default function Home() {
     } catch (error) {
         console.log("======== PREDICTION ERROR =======")
         console.error("Prediction error:", error);
-
+        console.error("API URL:", process.env.NEXT_PUBLIC_API_URL);
         setPredictionError(error.message);
 
-        notify("Prediction failed. Check the FastAPI server.");
+        notify(`Prediction failed: ${error.message}`);
 
     } finally {
         setIsPredicting(false);
