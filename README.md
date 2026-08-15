@@ -1,299 +1,685 @@
+# ChurnIQ — Customer Churn Prediction & Retention Intelligence Platform
 
+> An end-to-end, explainable customer churn intelligence platform that predicts customer churn risk, explains the key drivers behind each prediction, and converts model outputs into actionable retention recommendations.
 
-# 📊 Customer Churn Predictor
-
-<div align="center">
-
-
-**An end-to-end machine learning pipeline that predicts customer churn for a telecom company — with a live interactive dashboard, SHAP explainability, and automated model persistence.**
-
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://customer-churn-analysis-predictor.streamlit.app/)
-
-</div>
+**Live Application:** https://churniq-analysis-next.onrender.com
+**Backend API:** https://churniq-fastapi-server.onrender.com/docs
 
 ---
-
-## 🖥️ Live Demo
-
-> 🔗 **[Launch App →](https://customer-churn-analysis-predictor.streamlit.app/)**
-
-<img width="1316" height="635" alt="Screenshot 2026-05-03 at 19-38-00 Churn Predictor · Streamlit" src="https://github.com/user-attachments/assets/5d3fdfe6-c002-45c5-8ddd-e76a642b7596" />
+<img width="1142" height="575" alt="Screenshot 2026-08-13 191639" src="https://github.com/user-attachments/assets/156248ec-5785-4f17-9c1c-7be195afd966" />
+<img width="1047" height="373" alt="Screenshot 2026-08-13 191809" src="https://github.com/user-attachments/assets/99d44d62-6dee-4ab0-8157-b504c6475838" />
+<img width="894" height="546" alt="Screenshot 2026-08-13 191839" src="https://github.com/user-attachments/assets/1e53ed87-dbab-4bd2-b8c3-1b585718eea9" />
 
 
 
----
 
-## 📌 Table of Contents
+## 🚀 Why ChurnIQ?
 
-- [Overview](#-overview)
-- [Key Results](#-key-results)
-- [Project Structure](#-project-structure)
-- [Pipeline Architecture](#-pipeline-architecture)
-- [Features](#-features)
-- [SHAP Explainability](#-shap-explainability)
-- [Tech Stack](#-tech-stack)
-- [Getting Started](#-getting-started)
-- [Model Performance](#-model-performance)
-- [Interview Insights](#-interview-insights)
-- [License](#-license)
+Customer churn is not just a machine-learning problem. A business needs to answer three questions:
 
----
+1. **Which customers are likely to churn?**
+2. **Why are they likely to churn?**
+3. **What should the business do about it?**
 
-## Business Problem
-A telecom company is losing 26.5% of its customers annually,
-representing $1.67M in revenue at risk. This project identifies
-the key drivers of churn and builds a prediction model to flag
-at-risk customers before they leave.
+A traditional churn model may provide only a probability score. That is often insufficient for business users because a score does not explain the reason behind the prediction or suggest an appropriate response.
 
----
+**ChurnIQ connects all three stages into a single workflow:**
 
-
-## 🧠 Overview
-
-Customer churn is one of the most costly problems in the telecom industry — acquiring a new customer costs **5× more** than retaining an existing one. This project builds a full ML pipeline to:
-
-- **Predict** which customers are likely to churn (leave the service)
-- **Explain** why a prediction was made using SHAP values
-- **Serve** predictions via a real-time interactive web app
-
-The model is trained on the [IBM Telco Customer Churn Dataset](https://www.kaggle.com/datasets/blastchar/telco-customer-churn) — 7,043 customers, 21 features.
-
----
-
-## 🏆 Key Results
-
-| Model | Precision | Recall | F1-Score | ROC-AUC |
-|---|---|---|---|---|
-| Logistic Regression | 0.62 | 0.79 | 0.69 | 0.84 |
-| Random Forest | 0.65 | 0.81 | 0.72 | 0.88 |
-| **XGBoost** ✅ | **0.68** | **0.85** | **0.75** | **0.90** |
-
-> **Metric focus:** Recall is prioritised over Accuracy — missing a churner (false negative) costs more than a false alarm (false positive).
-
----
-
-## 📁 Project Structure
-
+```text
+Customer Data
+      │
+      ▼
+Preprocessing
+      │
+      ▼
+XGBoost Churn Prediction
+      │
+      ▼
+SHAP Explainability
+      │
+      ▼
+Retention Recommendation
+      │
+      ▼
+Interactive ChurnIQ Interface
 ```
-churn-predictor/
+
+The result is a decision-support application rather than just a machine-learning model.
+
+---
+
+# 🎯 Business Problem
+
+Telecom companies lose customers for many different reasons, including contract type, tenure, pricing, service configuration, and customer support experience.
+
+The objective of this project is to identify customers with a high probability of churn early enough for a business to take preventive action.
+
+The model is trained using the IBM Telco Customer Churn dataset containing **7,043 customers** and customer/service attributes.
+
+The project prioritizes **recall** because missing an actual churner can be more costly to the business than contacting a customer who ultimately stays.
+
+---
+
+# 💡 Solution
+
+ChurnIQ provides an end-to-end ML workflow:
+
+### 1. Predict
+
+The system accepts customer profile and service information and sends it to a FastAPI backend.
+
+The backend preprocesses the data and generates a churn probability using the trained XGBoost model.
+
+### 2. Explain
+
+SHAP is used to identify the most influential features contributing to an individual prediction.
+
+Instead of returning:
+
+```text
+Churn probability: 76%
+```
+
+the system can explain:
+
+```text
+Month-to-month contract      → increases risk
+Short tenure                 → increases risk
+Higher monthly charges       → increases risk
+```
+
+### 3. Act
+
+The strongest risk signals are converted into retention recommendations so that the prediction can support an actual business response.
+
+---
+
+# 🧠 Machine Learning Pipeline
+
+```text
+Raw Customer Data
+        │
+        ▼
+Data Cleaning
+        │
+        ├── Handle missing TotalCharges
+        ├── Convert numeric fields
+        └── Encode categorical features
+        │
+        ▼
+Feature Engineering
+        │
+        ├── Label Encoding
+        └── One-Hot Encoding
+        │
+        ▼
+Train/Test Split
+        │
+        ▼
+SMOTE
+        │
+        ▼
+StandardScaler
+        │
+        ▼
+Model Comparison
+        │
+        ├── Logistic Regression
+        ├── Random Forest
+        └── XGBoost
+        │
+        ▼
+Best Model: XGBoost
+        │
+        ▼
+SHAP Tree Explainer
+        │
+        ▼
+Prediction + Explanation
+        │
+        ▼
+Retention Recommendation
+```
+
+SMOTE is applied to the training data to address the class imbalance, while scaling is fitted on training data and then applied to the test data. The original project also compares Logistic Regression, Random Forest and XGBoost before selecting XGBoost as the strongest model.
+
+---
+
+# 🏆 Model Performance
+
+| Model               | Precision |   Recall | F1-Score |  ROC-AUC |
+| ------------------- | --------: | -------: | -------: | -------: |
+| Logistic Regression |      0.62 |     0.79 |     0.69 |     0.84 |
+| Random Forest       |      0.65 |     0.81 |     0.72 |     0.88 |
+| **XGBoost**         |  **0.68** | **0.85** | **0.75** | **0.90** |
+
+The XGBoost model achieves approximately **0.90 ROC-AUC** with **85% churn recall**, making it the selected production model.
+
+### Why Recall?
+
+The dataset has a significant class imbalance. Optimizing only for accuracy could hide poor churn detection performance.
+
+The project therefore emphasizes:
+
+**Recall → F1 → ROC-AUC**
+
+rather than relying on accuracy alone.
+
+---
+
+# 🔍 Explainable AI with SHAP
+
+ChurnIQ uses **SHAP (SHapley Additive exPlanations)** to explain individual predictions.
+
+The explanation layer allows users to understand:
+
+* Which features increased churn risk
+* Which features reduced churn risk
+* The relative impact of each feature
+* Why a particular customer received their risk score
+
+Important churn signals identified in the project include:
+
+* Contract type
+* Tenure
+* Monthly charges
+* Technical support
+* Internet service
+
+The original analysis also identifies contract type and tenure among the strongest churn drivers.
+
+---
+
+# 🖥️ ChurnIQ Frontend
+
+The frontend is built as a modern interactive web application rather than a notebook or static model demonstration.
+
+### Main capabilities
+
+* Customer risk profile
+* Dynamic customer inputs
+* Churn probability visualization
+* Low / Medium / High risk classification
+* SHAP driver visualization
+* Retention recommendations
+* Prediction workspace
+* Explainability view
+* Analytics view
+* Prediction history interface
+* Responsive UI
+* API-driven prediction workflow
+
+The frontend sends customer information to the FastAPI backend and renders the actual backend prediction rather than requiring the ML model to run directly inside the browser.
+
+---
+
+# ⚙️ Backend API
+
+The FastAPI backend exposes a REST API for model inference.
+
+### Endpoint
+
+```http
+POST /predict
+```
+
+### Example request
+
+```json
+{
+  "gender": "Female",
+  "SeniorCitizen": 0,
+  "Partner": "No",
+  "Dependents": "No",
+  "tenure": 12,
+  "PhoneService": "Yes",
+  "MultipleLines": "No",
+  "OnlineSecurity": "No",
+  "OnlineBackup": "No",
+  "DeviceProtection": "No",
+  "TechSupport": "No",
+  "StreamingTV": "No",
+  "StreamingMovies": "Yes",
+  "PaperlessBilling": "Yes",
+  "MonthlyCharges": 75,
+  "TotalCharges": 900,
+  "Contract": "Month-to-month",
+  "PaymentMethod": "Electronic check",
+  "InternetService": "Fiber optic"
+}
+```
+
+### Example response
+
+```json
+{
+  "prediction": 1,
+  "churn_probability": 0.76,
+  "churn_percentage": 76.0,
+  "risk_level": "high",
+  "model": "XGBoost",
+  "drivers": [],
+  "recommendations": {}
+}
+```
+
+The exact SHAP driver and recommendation contents depend on the customer profile being evaluated.
+
+---
+
+# 🏗️ System Architecture
+
+```text
+                         CHURNIQ
+                            │
+             ┌──────────────┴──────────────┐
+             │                             │
+             ▼                             ▼
+      Next.js Frontend              FastAPI Backend
+             │                             │
+             │ HTTPS / REST API            │
+             └──────────────► /predict ───┤
+                                           │
+                                    Preprocessing
+                                           │
+                                           ▼
+                                      XGBoost Model
+                                           │
+                                           ▼
+                                        SHAP
+                                           │
+                                           ▼
+                                   Recommendations
+                                           │
+                                           ▼
+                                      JSON Response
+                                           │
+             ◄─────────────────────────────┘
+             │
+             ▼
+       Risk + Drivers + Action
+```
+
+---
+
+# 🐳 Dockerized Architecture
+
+Both the frontend and backend are containerized.
+
+```text
+                    Docker
+                       │
+          ┌────────────┴────────────┐
+          │                         │
+          ▼                         ▼
+   Frontend Container         Backend Container
+       Next.js                    FastAPI
+       :3000                       :8000
+          │                         │
+          └────────── API ──────────┘
+                     │
+              XGBoost + SHAP
+```
+
+### Backend container
+
+Contains:
+
+* FastAPI
+* Python dependencies
+* preprocessing pipeline
+* trained XGBoost model
+* SHAP
+* recommendation logic
+
+### Frontend container
+
+Contains:
+
+* Next.js
+* React
+* production build
+* frontend dependencies
+
+This allows the ML backend and frontend to be developed, tested, and deployed independently.
+
+---
+
+# ☁️ Deployment
+
+The application is deployed as two services:
+
+```text
+Frontend
+https://churniq-analysis-next.onrender.com
+
+Backend
+https://churniq-fastapi-server.onrender.com
+```
+
+### Production request flow
+
+```text
+User
+ │
+ ▼
+ChurnIQ Frontend
+ │
+ │ POST /predict
+ ▼
+FastAPI Backend
+ │
+ ▼
+XGBoost
+ │
+ ▼
+SHAP
+ │
+ ▼
+Recommendation Engine
+ │
+ ▼
+Prediction JSON
+ │
+ ▼
+ChurnIQ UI
+```
+
+The frontend uses the production API URL through:
+
+```text
+NEXT_PUBLIC_API_URL
+```
+
+rather than hardcoding a local `localhost` API address.
+
+---
+
+# 🧰 Tech Stack
+
+| Category         | Technology                                  |
+| ---------------- | ------------------------------------------- |
+| Programming      | Python, JavaScript                          |
+| Machine Learning | XGBoost, Random Forest, Logistic Regression |
+| Data Processing  | pandas, NumPy                               |
+| ML Pipeline      | scikit-learn, imbalanced-learn              |
+| Imbalanced Data  | SMOTE                                       |
+| Explainability   | SHAP                                        |
+| Backend          | FastAPI                                     |
+| API              | REST                                        |
+| Frontend         | Next.js, React                              |
+| Styling          | CSS                                         |
+| Serialization    | joblib                                      |
+| Containerization | Docker                                      |
+| Version Control  | Git, GitHub                                 |
+| Deployment       | Render                                      |
+
+The original repository already contains the underlying Python ML stack, SHAP, Streamlit application, and persisted-model workflow; the project has since been extended into the separate FastAPI + Next.js architecture documented above.
+
+---
+
+# 📁 Project Structure
+
+```text
+Customer-Churn-analysis/
+│
+├── churn-backend/
+│   ├── models/
+│   │   └── trained model artifacts
+│   │
+│   ├── schemas/
+│   │   └── prediction.py
+│   │
+│   ├── services/
+│   │   ├── prediction_services.py
+│   │   └── recommendation_service.py
+│   │
+│   ├── src/
+│   │   └── preprocessing.py
+│   │
+│   ├── .dockerignore
+│   ├── Dockerfile
+│   ├── main.py
+│   ├── requirements.txt
+│   └── test_preprocessing.py
+│
+├── churn-frontend/
+│   ├── src/
+│   │   └── app/
+│   │       ├── page.jsx
+│   │       ├── layout.jsx
+│   │       └── globals.css
+│   │
+│   ├── .dockerignore
+│   ├── Dockerfile
+│   ├── package.json
+│   └── package-lock.json
 │
 ├── data/
-│   └── WA_Fn-UseC_-Telco-Customer-Churn.csv   # Raw dataset (never modified)
-│
 ├── notebooks/
-│   ├── EDA.ipynb                               # Exploratory data analysis
-│   └── model.ipynb                             # SHAP explainability & visualizations
-│
-├── src/
-│   ├── preprocessing.py                        # Reusable data pipeline
-│   ├── train.py                                # Model training & evaluation
-│   ├── xgb_model.pkl                           # Saved XGBoost model
-│   └── scaler.pkl                              # Saved StandardScaler
-│
 ├── apps/
-│   └── app.py                                  # Streamlit web application
-│
-├── assets/
-│   ├── app_screenshot.png                      # App UI screenshot
-│   └── shap_summary.png                        # SHAP feature importance plot
-│
-├── requirements.txt
+├── src/
+├── LICENSE
 └── README.md
 ```
 
 ---
 
-## 🔄 Pipeline Architecture
+# 🚀 Running Locally
 
-```
-Raw CSV
-   │
-   ▼
-preprocessing.py
-   ├── Fix TotalCharges (string → float)
-   ├── Encode binary columns (LabelEncoder)
-   ├── One-hot encode Contract, PaymentMethod, InternetService
-   ├── Train/Test Split (80/20)
-   ├── SMOTE oversampling (train set only)
-   └── StandardScaler (fit on train, transform on test)
-   │
-   ▼
-train.py
-   ├── Logistic Regression (baseline)
-   ├── Random Forest
-   ├── XGBoost ← best performer
-   ├── Evaluate: Precision, Recall, F1, ROC-AUC
-   └── Save model + scaler as .pkl
-   │
-   ▼
-apps/app.py  (Streamlit)
-   ├── Load .pkl files
-   ├── Take user inputs (sliders + dropdowns)
-   ├── Build feature vector matching training schema
-   ├── Scale → Predict → Show risk %
-   └── Display risk drivers + action recommendations
-```
-
----
-
-## ✨ Features
-
-### 🎯 Prediction Engine
-- Real-time churn probability (0–100%) with animated circular gauge
-- Colour-coded risk levels: 🟢 Low · 🟡 Medium · 🔴 High
-- Live updates as sliders move — no button click required
-
-### 📊 Risk Driver Bars
-- Visual breakdown of which factors (contract type, tenure, charges, support) are contributing to the risk score
-- Instantly interpretable without reading raw numbers
-
-### 💡 Action Recommendations
-- Smart business actions triggered by the prediction:
-  - *"Offer 1-year contract discount"* for month-to-month customers
-  - *"Consider loyalty pricing"* for high-charge customers
-  - *"Offer free tech support trial"* for unsupported customers
-
-### 📱 Mobile Friendly
-- Responsive 2-column layout that adapts to all screen sizes
-- Custom dark theme with `DM Sans` typography
-
----
-
-## 🔍 SHAP Explainability
-
-SHAP (SHapley Additive exPlanations) is used to explain both global and individual predictions.
-
-![SHAP Summary Plot](assets/shap_summary.png)
-
-**Top churn drivers identified:**
-- 📋 **Contract type** — Month-to-month customers churn significantly more
-- ⏱️ **Tenure** — Short-tenure customers are at highest risk
-- 💵 **Monthly charges** — Higher bills correlate with higher churn
-- 🛠️ **Tech support** — No tech support strongly predicts churn
-- 🌐 **Internet service** — Fiber optic customers churn more than DSL
-
-> SHAP values show not just *which* features matter, but *in which direction* — critical for business decision-making.
-
----
-
-## 🛠️ Tech Stack
-
-| Category | Tools |
-|---|---|
-| Language | Python 3.10+ |
-| ML Models | XGBoost, Random Forest, Logistic Regression |
-| Data | pandas, numpy |
-| ML Pipeline | scikit-learn, imbalanced-learn (SMOTE) |
-| Explainability | SHAP |
-| Visualization | matplotlib, seaborn |
-| Web App | Streamlit |
-| Model Persistence | joblib |
-| Deployment | Streamlit Community Cloud |
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Python 3.10+
-- Git
-
-### Installation
+## Backend
 
 ```bash
-# 1. Clone the repository
-git clone https://github.com/YOUR_USERNAME/churn-predictor.git
-cd churn-predictor
+cd churn-backend
 
-# 2. Create virtual environment
-python -m venv venv
-source venv/bin/activate        # Mac/Linux
-venv\Scripts\activate           # Windows
+python -m venv .venv
+```
 
-# 3. Install dependencies
+Activate the virtual environment.
+
+### Windows
+
+```bash
+.venv\Scripts\activate
+```
+
+Install dependencies:
+
+```bash
 pip install -r requirements.txt
-
-# 4. Download dataset
-# Place WA_Fn-UseC_-Telco-Customer-Churn.csv in the data/ folder
-# Download from: https://www.kaggle.com/datasets/blastchar/telco-customer-churn
 ```
 
-### Train the Model
+Run FastAPI:
 
 ```bash
-python src/train.py
+uvicorn main:app --reload
 ```
 
-This will:
-- Preprocess the data
-- Train all 3 models
-- Print evaluation metrics
-- Save `xgb_model.pkl` and `scaler.pkl` to `src/`
+API:
 
-### Run the App
+```text
+http://localhost:8000
+```
+
+Swagger:
+
+```text
+http://localhost:8000/docs
+```
+
+---
+
+## Frontend
 
 ```bash
-streamlit run apps/app.py
+cd churn-frontend
+npm install
+npm run dev
 ```
 
-Open `http://localhost:8501` in your browser.
+Frontend:
 
----
-
-## 📈 Model Performance
-
-### Classification Report — XGBoost
-
-```
-              precision    recall  f1-score   support
-
-           0       0.88      0.93      0.90      1036
-           1       0.68      0.85      0.75       373
-
-    accuracy                           0.86      1409
-   macro avg       0.78      0.89      0.83      1409
-weighted avg       0.83      0.86      0.84      1409
-
-ROC-AUC: 0.902
+```text
+http://localhost:3000
 ```
 
-### Why Recall over Accuracy?
+For local development, configure:
 
-The dataset has a **26% churn rate** (class imbalance). A naive model predicting "no churn" for everyone achieves 74% accuracy but catches 0 churners. We use:
-- **SMOTE** to balance training data
-- **Recall** as the primary metric — catching more churners matters more than avoiding false alarms
-
----
-
-## 💬 Interview Insights
-
-Key decisions made in this project and why:
-
-| Decision | Reason |
-|---|---|
-| SMOTE after train/test split | Prevents synthetic data from leaking into the test set |
-| `scaler.transform()` (not `fit_transform`) on test | Must apply the same scaling learned from training data |
-| XGBoost over Random Forest | Higher AUC and Recall; gradient boosting corrects errors sequentially |
-| Recall over Accuracy | Business cost of missing a churner > cost of a false alarm |
-| SHAP TreeExplainer | Exact (not approximate) Shapley values for tree models |
-| Relative file paths in deployment | Absolute Windows paths break on Linux-based cloud servers |
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8000
+```
 
 ---
 
-## 📄 License
+# 🐳 Running with Docker
 
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+## Backend
+
+```bash
+cd churn-backend
+
+docker build -t churn-backend .
+
+docker run -d \
+  -p 8000:8000 \
+  --name churn-backend-container \
+  churn-backend
+```
+
+## Frontend
+
+```bash
+cd churn-frontend
+
+docker build -t churn-frontend .
+
+docker run -d \
+  -p 3000:3000 \
+  --name churn-frontend-container \
+  churn-frontend
+```
+
+Then open:
+
+```text
+http://localhost:3000
+```
 
 ---
 
-## 🙋 Author
+# 🧪 Testing
 
-**Your Name**
-- GitHub: [Prabhu-Jethi](https://github.com/Prabhu-Jethi)
-- LinkedIn: [Prabhudatta Jethi](https://www.linkedin.com/in/prabhu-jethi/)
+The final application can be tested using different customer profiles:
+
+| Test Case                   | Variables                                      |
+| --------------------------- | ---------------------------------------------- |
+| High-risk profile           | Short tenure + monthly contract                |
+| Long-term customer          | High tenure + two-year contract                |
+| High-charge customer        | Higher monthly charges                         |
+| Contract comparison         | Monthly vs one-year vs two-year                |
+| Service comparison          | Different InternetService/service combinations |
+| Customer profile comparison | Male/Female + different service configurations |
+
+The important validation is that the frontend sends the changed customer information to the backend and displays the resulting model response, SHAP drivers, and recommendation.
 
 ---
 
-<div align="center">
-  <sub>Built as part of a machine learning portfolio. If you found this useful, please ⭐ the repo!</sub>
-</div>
+# 🔑 Key Engineering Decisions
+
+### SMOTE after train/test split
+
+SMOTE is applied only to the training data to avoid synthetic samples leaking into the test set.
+
+### XGBoost over Random Forest
+
+XGBoost achieved the strongest ROC-AUC and churn recall among the evaluated models.
+
+### SHAP instead of a black-box score
+
+The model prediction is accompanied by feature-level explanations so users can understand the reasoning behind individual predictions.
+
+### FastAPI for model serving
+
+The trained model and preprocessing pipeline are separated from the frontend and exposed through a REST API.
+
+### Next.js for the application layer
+
+The frontend consumes backend responses and provides an interactive interface for business-oriented risk assessment.
+
+### Docker for reproducibility
+
+Both services are containerized so their runtime dependencies are isolated and deployment is consistent across environments.
+
+### Environment-based API configuration
+
+The frontend uses `NEXT_PUBLIC_API_URL` so the same code can communicate with the local FastAPI server during development and the deployed backend in production.
+
+---
+
+# 📌 What This Project Demonstrates
+
+ChurnIQ demonstrates experience across the complete machine-learning application lifecycle:
+
+```text
+Data
+ ↓
+EDA
+ ↓
+Preprocessing
+ ↓
+Class Imbalance Handling
+ ↓
+Model Training
+ ↓
+Model Evaluation
+ ↓
+Explainable AI
+ ↓
+REST API
+ ↓
+Frontend Application
+ ↓
+Docker
+ ↓
+Cloud Deployment
+```
+
+This makes the project more than a standalone ML notebook: it demonstrates how a trained model can be transformed into a usable, explainable, deployable application.
+
+---
+
+# 📊 Original Dataset
+
+**IBM Telco Customer Churn Dataset**
+
+* 7,043 customers
+* Telecom customer/service attributes
+* Binary churn target
+
+Dataset source:
+
+https://www.kaggle.com/datasets/blastchar/telco-customer-churn
+
+---
+
+# 📄 License
+
+This project is licensed under the MIT License.
+
+See [LICENSE](LICENSE) for details.
+
+---
+
+# 👤 Author
+
+**Prabhu-Jethi**
+
+GitHub:
+https://github.com/Prabhu-Jethi
+
+LinkedIn:
+https://www.linkedin.com/in/prabhudatta-jethi/
+
+---
+
+> **ChurnIQ — Predict the risk. Understand the why. Take action.**
