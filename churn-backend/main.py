@@ -22,6 +22,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/health")
+def health_check():
+    return{
+        "status": "ok"
+    }
 
 @app.get("/")
 def root():
@@ -30,11 +35,6 @@ def root():
         "status": "healthy"
     }
 
-@app.get("/health")
-def health_check():
-    return{
-        "status": "ok"
-    }
 
 @app.post("/predict")
 def predict(customer: CustomerData):
