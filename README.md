@@ -4,7 +4,7 @@
 
 **Live Application:** https://churniq-analysis-next.onrender.com
 <br><br/>
-**Backend API:** https://churniq-fastapi-server.onrender.com/docs
+
 
 ---
 <img width="1142" height="575" alt="Screenshot 2026-08-13 191639" src="https://github.com/user-attachments/assets/156248ec-5785-4f17-9c1c-7be195afd966" />
