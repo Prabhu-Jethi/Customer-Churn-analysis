@@ -3,6 +3,7 @@
 > An end-to-end, explainable customer churn intelligence platform that predicts customer churn risk, explains the key drivers behind each prediction, and converts model outputs into actionable retention recommendations.
 
 **Live Application:** https://churniq-analysis-next.onrender.com
+<br><br/>
 **Backend API:** https://churniq-fastapi-server.onrender.com/docs
 
 ---
