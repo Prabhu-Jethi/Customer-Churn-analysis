@@ -10,6 +10,13 @@ app = FastAPI(
     version="1.0.0"
 )
 
+@app.get("/")
+def root():
+    return{
+        "message": "App is running",
+        "status": "healthy"
+    }
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -28,12 +35,6 @@ def health_check():
         "status": "ok"
     }
 
-@app.get("/")
-def root():
-    return{
-        "message": "App is running",
-        "status": "healthy"
-    }
 
 @app.post("/predict")
 def predict(customer: CustomerData):
