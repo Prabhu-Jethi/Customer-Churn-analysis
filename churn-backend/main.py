@@ -17,6 +17,12 @@ def root():
         "status": "healthy"
     }
 
+@app.api_route("/health", methods=['GET', 'HEAD'])
+def health_check():
+    return{
+        "status": "ok"
+    }
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -28,13 +34,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-@app.get("/health")
-def health_check():
-    return{
-        "status": "ok"
-    }
-
 
 @app.post("/predict")
 def predict(customer: CustomerData):
