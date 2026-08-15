@@ -22,18 +22,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/health")
+def health_check():
+    return{
+        "status": "ok"
+    }
 
 @app.get("/")
 def root():
     return{
         "message": "App is running",
         "status": "healthy"
-    }
-
-@app.get("/health")
-def health_check():
-    return{
-        "status": "ok"
     }
 
 @app.post("/predict")
